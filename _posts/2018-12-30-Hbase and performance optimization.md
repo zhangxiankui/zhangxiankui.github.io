@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hbase and performance optimization"
+title:  "Hbase相关业务系统性能优化"
 categories: 大数据 性能优化
 tags:  Hbase 问题处理
 author: zhangxiankui

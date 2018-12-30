@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Web attack and defense"
+title:  "Web攻击方式和防御手段"
 categories: Web
 tags:  网络攻击 XSS CXRF DDos 
 author: zhangxiankui
