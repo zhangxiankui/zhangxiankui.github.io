@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CentOS7定时任务详解"
+title:  "helloworld"
 categories: linux
 tags:  centos7 crontab linux 工具软件  
 author: SnakeSon
@@ -12,7 +12,7 @@ author: SnakeSon
 
 ## 前言
 
-工作中需要开启一个定时任务：每天晚上2点进行爬虫代码的运行，这不得不去学习一下linux 下的定时任务crontab
+test
 
 ##  crontab
 
