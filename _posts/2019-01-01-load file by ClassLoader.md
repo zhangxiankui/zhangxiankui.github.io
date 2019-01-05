@@ -17,7 +17,7 @@ author: zhangxiankui
 #### 1.由于后面源码分析中会用到类加载器相关知识，这里先简单介绍加载器
 #### 2.加载器是jvm虚拟机用来加载class文件的对象，也就是通过ClassLoader类中的loadClass方法进行加载（对于加载器如何进行class文件加载这里不展开）,那么可以想到它必然就会存在寻找磁盘文件的方法
 #### 3.JVM加载器的继承关系如下图所示：
-![](http://localhost:4001/imgs/originSource/jdk/ClassLoader-extends-picture.jpg)
+![](https://zhangxiankui.github.io/imgs/originSource/jdk/ClassLoader-extends-picture.jpg)
 图解：图中箭头方向就是继承的方向，ClassLoader是一个抽象类，是所有加载器的父类，当然除了根加载器bootstrap，另外用户自定义的加载器也可以直接
 继承ClassLoader来实现自定义的class文件加载，例如JSPClassLoader就是继承ClassLoade，并通过为每个jsp对应类生成一个加载器来完成jsp页面的热加载的
 （这里不展开，可以自行百度或者自己实现）另：这里面在ClassLoader和URLClassLoader类之间其实还有一个中间类SecureClassLoader，由于这里对源码分析无影响，
@@ -96,7 +96,7 @@ public URL getResource(String name) {
     }
 ```
 这里parent很有意思，就必须提到JVM中的加载器的父子关系，其实之前的类继承图中也有一点，父子关系图见下图
-![](http://localhost:4001/imgs/originSource/jdk/ClassLoader-parent-relation.jpg)
+![](https://zhangxiankui.github.io/imgs/originSource/jdk/ClassLoader-parent-relation.jpg)
 下面以一个例子去介绍这个加载过程：
 ```
 // 通过Test类的加载器去获取mybatis的核心配置文件mybatis-config.xml
