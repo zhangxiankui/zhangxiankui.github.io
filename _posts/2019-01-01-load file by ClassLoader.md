@@ -2,7 +2,7 @@
 layout: post
 title:  "类加载器之getResourceAsStream源码解析"
 categories: ClassLoader 文件加载
-tags:  文件加载 JDK源码
+tags:  文件加载 JDK源码 源码解析说
 author: zhangxiankui
 ---
 
