@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "持久层框架必备利器之动态代理"
-categories: ORM框架 设计模式
+categories: ORM框架 设计模式 mybatis
 tags:  源码解析 代理模式
 author: zhangxiankui
 ---
