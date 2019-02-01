@@ -15,9 +15,8 @@ author: zhangxiankui
 当然，说到数据源，事务是不得不提的，会基于mybatis的事务处理来简单讨论事务（放至spring事务中一块分析）
 
 ## 二、初始化数据环境
-- 数据源必须要从初始化说起，看下mybatis到底是如何进行初始化，以及支持哪几种加载数据源的方式，基于前面mybatis初始化那篇博客，我们从XMLConfigBuilder
-这个类开始说起
-- 这次再来看XMLConfigBuilder对象时，我有了新的体验，想到mybatis肯定还是有基于注解的初始化，那么必定有基于注解的配置编译器；那么mybatis是怎么做的呢？
+数据源必须要从初始化说起，看下mybatis到底是如何进行初始化，以及支持哪几种加载数据源的方式，基于前面mybatis初始化那篇博客，我们从XMLConfigBuilder
+这个类开始说起，这次再来看XMLConfigBuilder对象时，我有了新的体验，想到mybatis肯定还是有基于注解的初始化，那么必定有基于注解的配置编译器；那么mybatis是怎么做的呢？
 ```
 /**
  * 可以看见继承自BaseBuilder，查看BaseBuilder之后会发现，里面都是一些
@@ -109,10 +108,9 @@ protected <T> Class<? extends T> resolveAlias(String alias) {
   return typeAliasRegistry.resolveAlias(alias);
 }
 ```
-- 上面出现了一个typeAliasRegistry类，自己动手翻源码就知道这个就是维护类型和别名的关系的，并且提供两者关系注册和查询的方法，这又让我
+上面出现了一个typeAliasRegistry类，自己动手翻源码就知道这个就是维护类型和别名的关系的，并且提供两者关系注册和查询的方法，这又让我
 不禁想起了设计模式里面的一个原则，没错，就是单一职责原则；虽然类很多，但是整个业务逻辑就会变得很清晰，在代码修改过程中并不会对其他
-模块造成问题
-- 另外一个问题，这里面突然冒出来一个typeAliasRegistry，它是从哪冒出来的呢，注意到之前初始化系列文章的肯定知道，是在XmlConfigBuilder对象初始化时候设置进来的，
+模块造成问题；另外一个问题，这里面突然冒出来一个typeAliasRegistry，它是从哪冒出来的呢，注意到之前初始化系列文章的肯定知道，是在XmlConfigBuilder对象初始化时候设置进来的，
 而且typeAliasRegistry其实是Configuration的对象，并转交给BaseBuilder来进行处理
 ```
 public Configuration() {
