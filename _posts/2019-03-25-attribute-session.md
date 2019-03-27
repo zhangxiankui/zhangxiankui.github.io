@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "·Ö²¼Ê½¼¯ÈºÖ®session¹²ÏíÎÊÌâ"
-categories: ·şÎñÆ÷¼¯Èº session¹²Ïí nginx redis
+title:  "åˆ†å¸ƒå¼é›†ç¾¤ä¹‹sessionå…±äº«é—®é¢˜"
+categories: æœåŠ¡å™¨é›†ç¾¤ sessionå…±äº« nginx redis
 tags:  session Cookie spring-session
 author: zhangxiankui
 ---
@@ -10,73 +10,74 @@ author: zhangxiankui
 {:toc}
 
 
-## Ò»¡¢Ç°ÑÔ
-ÓÉÓÚÄ¿Ç°¹¤×÷ĞèÒª¶Ôµ±Ç°µÄ·şÎñÆ÷¼¯ÈºµÄSession¹²ÏíÎÊÌâÌá¹©½â¾ö·½°¸£¬ËùÒÔ±¾Æª²©¿ÍÖ÷ÒªÌÖÂÛ·Ö²¼Ê½¼¯ÈºËùÃæÁÙµÄSessionÎÊÌâÒÔ¼°ËùÉæ¼°µÄÆäËûÒ»Ğ©SessionÏà¹ØµÄÎÊÌâ
+## ä¸€ã€å‰è¨€
+ç”±äºç›®å‰å·¥ä½œéœ€è¦å¯¹å½“å‰çš„æœåŠ¡å™¨é›†ç¾¤çš„Sessionå…±äº«é—®é¢˜æä¾›è§£å†³æ–¹æ¡ˆï¼Œæ‰€ä»¥æœ¬ç¯‡åšå®¢ä¸»è¦è®¨è®ºåˆ†å¸ƒå¼é›†ç¾¤æ‰€é¢ä¸´çš„Sessioné—®é¢˜ä»¥åŠæ‰€æ¶‰åŠçš„å…¶ä»–ä¸€äº›Sessionç›¸å…³çš„é—®é¢˜
 
-## ¶ş¡¢Ö÷½ÇSession
-Ëµµ½Session£¬ÄÇÃ´cookieÊÇ²»µÃ²»ËµµÄ
+## äºŒã€ä¸»è§’Session
+è¯´åˆ°Sessionï¼Œé‚£ä¹ˆcookieæ˜¯ä¸å¾—ä¸è¯´çš„
 
 #### 1.Cookie
-##### CookieÊÇÊ²Ã´£¿
-CookieÊÇ·şÎñ¶Ë²úÉú²¢Í¨¹ıresponseµÄheader·µ»Ø¸ø¿Í»§¶Ë²¢±£´æÔÚ¿Í»§¶ËµÄ¶ÔÏó£»ÏÂÍ¼ÊÇCookieµÄÊôĞÔÖµ£¬Cookie·ÖÎªÁ½¸ö°æ±¾£¬ÉÏÏÂ·Ö±ğÊÇversion0ºÍversion1
+##### Cookieæ˜¯ä»€ä¹ˆï¼Ÿ
+Cookieæ˜¯æœåŠ¡ç«¯äº§ç”Ÿå¹¶é€šè¿‡responseçš„headerè¿”å›ç»™å®¢æˆ·ç«¯å¹¶ä¿å­˜åœ¨å®¢æˆ·ç«¯çš„å¯¹è±¡ï¼›ä¸‹å›¾æ˜¯Cookieçš„å±æ€§å€¼ï¼ŒCookieåˆ†ä¸ºä¸¤ä¸ªç‰ˆæœ¬ï¼Œä¸Šä¸‹åˆ†åˆ«æ˜¯version0å’Œversion1
 ![](https://zhangxiankui.github.io/imgs/session/cookieProp.jpg)
 
-##### CookieºÍSeesionµÄ¹ØÏµ£¿
-- Êµ¼ÊÉÏ·şÎñÆ÷µÄSession¹ÜÀíĞèÒªÍ¨¹ıCookieÀ´ÊµÏÖ£¬Èç¹û²»ÊÇCookie½«µ±Ç°ÓÃ»§µÄSessionIdÍ¨¹ırequestµÄheader¸æËß·şÎñ¶Ë£¬ÄÇÃ´·şÎñ¶ËÊÇÎŞ·¨ÖªµÀµ±Ç°ÓÃ»§ÊÇ
-ÊôÓÚÄÄ¸öSessionµÄ£»
-- µ±È»£¬ä¯ÀÀÆ÷ÊÇ¿ÉÒÔÍ¨¹ıÏÂÃæ°´Å¥À´ÉèÖÃÀ´½ûÖ¹Cookie£¬ÄÇÃ´ÎÊÌâÀ´ÁË£¬Èç¹ûCookie½ûÖ¹ÁËÔõÃ´°ìÄØ£¿·şÎñÆ÷¾ÍÃ»°ì·¨»ñÈ¡SessionIdÁË£¬Õâ¸ö´ó¼Ò×ÔĞĞ°Ù¶È
+##### Cookieå’ŒSeesionçš„å…³ç³»ï¼Ÿ
+- å®é™…ä¸ŠæœåŠ¡å™¨çš„Sessionç®¡ç†éœ€è¦é€šè¿‡Cookieæ¥å®ç°ï¼Œå¦‚æœä¸æ˜¯Cookieå°†å½“å‰ç”¨æˆ·çš„SessionIdé€šè¿‡requestçš„headerå‘Šè¯‰æœåŠ¡ç«¯ï¼Œé‚£ä¹ˆæœåŠ¡ç«¯æ˜¯æ— æ³•çŸ¥é“å½“å‰ç”¨æˆ·æ˜¯
+å±äºå“ªä¸ªSessionçš„ï¼›
+- å½“ç„¶ï¼Œæµè§ˆå™¨æ˜¯å¯ä»¥é€šè¿‡ä¸‹é¢æŒ‰é’®æ¥è®¾ç½®æ¥ç¦æ­¢Cookieï¼Œé‚£ä¹ˆé—®é¢˜æ¥äº†ï¼Œå¦‚æœCookieç¦æ­¢äº†æ€ä¹ˆåŠå‘¢ï¼ŸæœåŠ¡å™¨å°±æ²¡åŠæ³•è·å–SessionIdäº†ï¼Œè¿™ä¸ªå¤§å®¶è‡ªè¡Œç™¾åº¦
 ![](https://zhangxiankui.github.io/imgs/session/setCookie.jpg)
 
-##### CookieºÍSeesionµÄ²úÉúµÄ¸ù±¾Ô­Òò£¿
-- ²»ÖªµÀ´ó¼ÒÓĞÃ»ÓĞÏë¹ıÕâÃ´Ò»¸öÎÊÌâ£¬ÎªÊ²Ã´»á³öÏÖCookieºÍSessionÕâÁ½¸ö¶«Î÷£¬ÎÒÈÏÎª´æÔÚ¾ÍÒ»¶¨»áÓĞÀúÊ·±ØÈ»ĞÔ£»ÆäÊµÔÚÎÒ¿´À´£¬
-ËüÃÇ´æÔÚµÄ¸ù±¾Ô­ÒòÊÇHttpµÄÎŞ×´Ì¬ĞÔ£¬Ò²¾ÍÊÇËµ·şÎñÆ÷²¢²»ÄÜÍ¨¹ıHttpĞ­ÒéÀ´¼ÇÂ¼ÓÃ»§µÄ×´Ì¬£¬ËùÒÔ¾ÍĞèÒªÄ³¸öµÚÈı·½ÓÃÀ´Íê³ÉÕâ¼şÊÂ£»
-- ¶øSessionºÍCookie¶¼ÓĞÆäÓÅÈ±µã£¬¾ßÌåµÄÓÅÈ±µã¾Í²»ÔÙÒ»Ò»×¸Êö£¨¸ĞĞËÈ¤¿ÉÑĞ¾¿£©£¬ÕâÑù¾Íµ¼ÖÂËüÃÇÓĞ²»Í¬µÄÊÊÓÃ³¡¾°£»Ê¹ÓÃCookie»á¼õĞ¡·şÎñÆ÷µÄÑ¹Á¦£¬µ«ÊÇÍ¬Ê±»áÕ¼ÓÃ´ø¿í£¬Session
-»áÔö¼Ó·şÎñÆ÷Ñ¹Á¦£¬µ«ÊÇ¶ÔÓÚ¸ß²¢·¢µÄÇëÇóºÜ×àĞ§£¬ÕâÆäÊµ·´Ó³³öÒ»¸öºÜ¾­µäµÄÃüÌâ£¬Ã»ÓĞÍêÃÀµÄ¼¼Êõ£¬Ö»ÓĞÊÊÓÃÓÚÒµÎñ³¡¾°µÄÍêÃÀ¼¼Êõ£¬ÒµÎñ³¡¾°ÊÇÇı¶¯¼¼Êõ·¢Õ¹µÄÕæÕı¶¯Á¦
+##### Cookieå’ŒSeesionçš„äº§ç”Ÿçš„æ ¹æœ¬åŸå› ï¼Ÿ
+- ä¸çŸ¥é“å¤§å®¶æœ‰æ²¡æœ‰æƒ³è¿‡è¿™ä¹ˆä¸€ä¸ªé—®é¢˜ï¼Œä¸ºä»€ä¹ˆä¼šå‡ºç°Cookieå’ŒSessionè¿™ä¸¤ä¸ªä¸œè¥¿ï¼Œæˆ‘è®¤ä¸ºå­˜åœ¨å°±ä¸€å®šä¼šæœ‰å†å²å¿…ç„¶æ€§ï¼›å…¶å®åœ¨æˆ‘çœ‹æ¥ï¼Œ
+å®ƒä»¬å­˜åœ¨çš„æ ¹æœ¬åŸå› æ˜¯Httpçš„æ— çŠ¶æ€æ€§ï¼Œä¹Ÿå°±æ˜¯è¯´æœåŠ¡å™¨å¹¶ä¸èƒ½é€šè¿‡Httpåè®®æ¥è®°å½•ç”¨æˆ·çš„çŠ¶æ€ï¼Œæ‰€ä»¥å°±éœ€è¦æŸä¸ªç¬¬ä¸‰æ–¹ç”¨æ¥å®Œæˆè¿™ä»¶äº‹ï¼›
+- è€ŒSessionå’ŒCookieéƒ½æœ‰å…¶ä¼˜ç¼ºç‚¹ï¼Œå…·ä½“çš„ä¼˜ç¼ºç‚¹å°±ä¸å†ä¸€ä¸€èµ˜è¿°ï¼ˆæ„Ÿå…´è¶£å¯ç ”ç©¶ï¼‰ï¼Œè¿™æ ·å°±å¯¼è‡´å®ƒä»¬æœ‰ä¸åŒçš„é€‚ç”¨åœºæ™¯ï¼›ä½¿ç”¨Cookieä¼šå‡å°æœåŠ¡å™¨çš„å‹åŠ›ï¼Œä½†æ˜¯åŒæ—¶ä¼šå ç”¨å¸¦å®½ï¼ŒSession
+ä¼šå¢åŠ æœåŠ¡å™¨å‹åŠ›ï¼Œä½†æ˜¯å¯¹äºé«˜å¹¶å‘çš„è¯·æ±‚å¾ˆå¥æ•ˆï¼Œè¿™å…¶å®åæ˜ å‡ºä¸€ä¸ªå¾ˆç»å…¸çš„å‘½é¢˜ï¼Œæ²¡æœ‰å®Œç¾çš„æŠ€æœ¯ï¼Œåªæœ‰é€‚ç”¨äºä¸šåŠ¡åœºæ™¯çš„å®Œç¾æŠ€æœ¯ï¼Œä¸šåŠ¡åœºæ™¯æ˜¯é©±åŠ¨æŠ€æœ¯å‘å±•çš„çœŸæ­£åŠ¨åŠ›
 
-##### Cookie»á´øÀ´µÄÎÊÌâ
-- Cookie´øÀ´µÄÎÊÌâÊÇ´ÓËü°²È«ĞÔµÄ½Ç¶È¿¼ÂÇµÄ£¬±ÈÈç¾­µäµÄCXRF¹¥»÷£¬ÆäÊµ¾ÍÊÇ½Ù³ÖÁË¿Í»§¶ËµÄCookieÇëÇóÀ´Ä£Äâ¿Í»§¶Ë·ÃÎÊ
-- ä¯ÀÀÆ÷¶ÔÓÚCookieÊÇÓĞÏŞÖÆµÄ£¬ÈçÏÂÍ¼
+##### Cookieä¼šå¸¦æ¥çš„é—®é¢˜
+- Cookieå¸¦æ¥çš„é—®é¢˜æ˜¯ä»å®ƒå®‰å…¨æ€§çš„è§’åº¦è€ƒè™‘çš„ï¼Œæ¯”å¦‚ç»å…¸çš„CXRFæ”»å‡»ï¼Œå…¶å®å°±æ˜¯åŠ«æŒäº†å®¢æˆ·ç«¯çš„Cookieè¯·æ±‚æ¥æ¨¡æ‹Ÿå®¢æˆ·ç«¯è®¿é—®
+- æµè§ˆå™¨å¯¹äºCookieæ˜¯æœ‰é™åˆ¶çš„ï¼Œå¦‚ä¸‹å›¾
 ![](https://zhangxiankui.github.io/imgs/session/cookie-limit.jpg)
 
 
 #### 2.Session
-##### Ê²Ã´ÊÇSession£¿
-- ºÁÎŞÒÉÎÊ£¬SessionÊÇ±¾Æª²©¿ÍµÄÖ÷½Ç£¬SessionµÄ¹Ù·½¶¨ÒåÊÇ»á»°¿ØÖÆ£¬ÓÃÓÚ´æ´¢ÓÃ»§µÄÊôĞÔĞÅÏ¢£»Í¨³£ÎÒÃÇËµµÄSession£¬Ò²¾ÍÊÇ·şÎñÆ÷²úÉúµÄ²¢´æ´¢ÔÚ
-·şÎñÆ÷µÄÓÃÓÚ¼ÇÂ¼ÓÃ»§ĞÅÏ¢µÄ¶ÔÏó£»
-- SessionÊÇ´æ´¢ÔÚ·şÎñÆ÷ÉÏµÄ£¬×¼È·µÄËµÊÇSevletÈİÆ÷ÖĞµÄ
+##### ä»€ä¹ˆæ˜¯Sessionï¼Ÿ
+- æ¯«æ— ç–‘é—®ï¼ŒSessionæ˜¯æœ¬ç¯‡åšå®¢çš„ä¸»è§’ï¼ŒSessionçš„å®˜æ–¹å®šä¹‰æ˜¯ä¼šè¯æ§åˆ¶ï¼Œç”¨äºå­˜å‚¨ç”¨æˆ·çš„å±æ€§ä¿¡æ¯ï¼›é€šå¸¸æˆ‘ä»¬è¯´çš„Sessionï¼Œä¹Ÿå°±æ˜¯æœåŠ¡å™¨äº§ç”Ÿçš„å¹¶å­˜å‚¨åœ¨
+æœåŠ¡å™¨çš„ç”¨äºè®°å½•ç”¨æˆ·ä¿¡æ¯çš„å¯¹è±¡ï¼›
+- Sessionæ˜¯å­˜å‚¨åœ¨æœåŠ¡å™¨ä¸Šçš„ï¼Œå‡†ç¡®çš„è¯´æ˜¯Sevletå®¹å™¨ä¸­çš„
 
-##### SeesionµÄ²úÉúµÄ¸ù±¾Ô­Òò£¿
-ÓÉÓÚcookieºÍ·şÎñÆ÷µÄ½»»¥³É±¾¸ß£¬Session³ÉÁË¸ÃÎÊÌâµÄ½â¾ö·½°¸£¬ÄÇÃ´SessionÓ¦ÔË¶øÉú
+##### Seesionçš„äº§ç”Ÿçš„æ ¹æœ¬åŸå› ï¼Ÿ
+ç”±äºcookieå’ŒæœåŠ¡å™¨çš„äº¤äº’æˆæœ¬é«˜ï¼ŒSessionæˆäº†è¯¥é—®é¢˜çš„è§£å†³æ–¹æ¡ˆï¼Œé‚£ä¹ˆSessionåº”è¿è€Œç”Ÿ
 
-##### Session´øÀ´µÄÎÊÌâ
-- ´«Í³»¥ÁªÍøµÄµ¥»ú²¿ÊğµÄÊ±´ú£¬SessionÊÇ¿ÉÒÔºáĞĞ°ÔµÀµÄ£¬ÒòÎªËùÓĞÓÃ»§µÄSession¶¼ÔÚÒ»Ì¨·şÎñÆ÷ÉÏ£¬²»´æÔÚÈÎºÎÎÊÌâ£»
-- Ëæ×ÅÕû¸ö»¥ÁªÍøÒµÎñµÄáÈÆğ£¬ÍøÕ¾·ÃÎÊÁ¿°éËæ×ÅÖ¸Êı¼¶±ğµÄÔö³¤£¬µ¥Ì¨·şÎñÆ÷²»ÄÜÂú×ã·ÃÎÊµÄĞèÇó£¬ËùÒÔ¾ÍĞèÒª×öºáÏòÀ©Õ¹£¬Ò²¾ÍÊÇ´î½¨·şÎñÆ÷¼¯Èº£¬ÄÇÃ´¾Í»áÒı³ö½ñÌì
-µÄÖ÷ÈË¹«SessionÔÚ·şÎñÆ÷¼¯ÈºÖ®Ç°µÄ¹²ÏíÎÊÌâ
+##### Sessionå¸¦æ¥çš„é—®é¢˜
+- ä¼ ç»Ÿäº’è”ç½‘çš„å•æœºéƒ¨ç½²çš„æ—¶ä»£ï¼ŒSessionæ˜¯å¯ä»¥æ¨ªè¡Œéœ¸é“çš„ï¼Œå› ä¸ºæ‰€æœ‰ç”¨æˆ·çš„Sessionéƒ½åœ¨ä¸€å°æœåŠ¡å™¨ä¸Šï¼Œä¸å­˜åœ¨ä»»ä½•é—®é¢˜ï¼›
+- éšç€æ•´ä¸ªäº’è”ç½‘ä¸šåŠ¡çš„å´›èµ·ï¼Œç½‘ç«™è®¿é—®é‡ä¼´éšç€æŒ‡æ•°çº§åˆ«çš„å¢é•¿ï¼Œå•å°æœåŠ¡å™¨ä¸èƒ½æ»¡è¶³è®¿é—®çš„éœ€æ±‚ï¼Œæ‰€ä»¥å°±éœ€è¦åšæ¨ªå‘æ‰©å±•ï¼Œä¹Ÿå°±æ˜¯æ­å»ºæœåŠ¡å™¨é›†ç¾¤ï¼Œé‚£ä¹ˆå°±ä¼šå¼•å‡ºä»Šå¤©
+çš„ä¸»äººå…¬Sessionåœ¨æœåŠ¡å™¨é›†ç¾¤ä¹‹å‰çš„å…±äº«é—®é¢˜
 
 
-## Èı.SessionÎÊÌâÄ¿Ç°µÄ½â¾ö·½°¸
-#### 1.ÒÀÀµ¸ºÔØ¾ùºâÉè±¸ÊµÏÖÕ³ĞÔ»á»°
-##### F5»òÕßnginxÊµÏÖÕ³ĞÔ»á»°
-- ËùÎ½Õ³ĞÔ»á»°ÊÇÖ¸Ä³Ò»¸öÌØĞÔÓÃ»§ÇëÇóÖ»»á±»·Ö·¢µ½ÌØ¶¨µÄÄ³Ò»Ì¨ºó¶Ë·şÎñÆ÷ÉÏ£¬ÕâÑù¾Í¿ÉÒÔ½â¾ö¼¯ÈºÖĞµÄSessionÎÊÌâ
-- µ«ÊÇÕâ»á´øÀ´Ò»¸öÎÊÌâ£¬µ±ÆäÖĞÄ³Ò»Ì¨·şÎñÆ÷å´»ú£¬ÄÇÃ´ºÜ¶àÓÃ»§¶¼±ØĞëÒª½øĞĞÖØĞÂµÇÂ¼µÈ²Ù×÷£¬ÓÃ»§ÌåÑéºÜ²»ºÃ
+## ä¸‰.Sessioné—®é¢˜ç›®å‰çš„è§£å†³æ–¹æ¡ˆ
+#### 1.ä¾èµ–è´Ÿè½½å‡è¡¡è®¾å¤‡å®ç°ç²˜æ€§ä¼šè¯
+##### F5æˆ–è€…nginxå®ç°ç²˜æ€§ä¼šè¯
+- æ‰€è°“ç²˜æ€§ä¼šè¯æ˜¯æŒ‡æŸä¸€ä¸ªç‰¹æ€§ç”¨æˆ·è¯·æ±‚åªä¼šè¢«åˆ†å‘åˆ°ç‰¹å®šçš„æŸä¸€å°åç«¯æœåŠ¡å™¨ä¸Šï¼Œè¿™æ ·å°±å¯ä»¥è§£å†³é›†ç¾¤ä¸­çš„Sessioné—®é¢˜
+- ä½†æ˜¯è¿™ä¼šå¸¦æ¥ä¸€ä¸ªé—®é¢˜ï¼Œå½“å…¶ä¸­æŸä¸€å°æœåŠ¡å™¨å®•æœºï¼Œé‚£ä¹ˆå¾ˆå¤šç”¨æˆ·éƒ½å¿…é¡»è¦è¿›è¡Œé‡æ–°ç™»å½•ç­‰æ“ä½œï¼Œç”¨æˆ·ä½“éªŒå¾ˆä¸å¥½
 
-#### 2.ÒÀÀµServletÈİÆ÷µÄSession¸´ÖÆ
-##### ²¿·ÖWeb·şÎñÆ÷ÖîÈçTomcatÒÑ¾­Ö§³ÖSession¸´ÖÆ
-- Ê¹ÓÃÆğÀ´·Ç³£¼òµ¥£¬Ö»ĞèÒªÔÚtomcatÖĞ·Å¿ª¼¯ÈºÅäÖÃ<cluster>£¬²¢ÇÒÔÚweb.xmlÖĞÔö¼Ó<distributable></distributable>±êÇ©¼´¿É
+#### 2.ä¾èµ–Servletå®¹å™¨çš„Sessionå¤åˆ¶
+##### éƒ¨åˆ†WebæœåŠ¡å™¨è¯¸å¦‚Tomcatå·²ç»æ”¯æŒSessionå¤åˆ¶
+- ä½¿ç”¨èµ·æ¥éå¸¸ç®€å•ï¼Œåªéœ€è¦åœ¨tomcatä¸­æ”¾å¼€é›†ç¾¤é…ç½®<cluster>ï¼Œå¹¶ä¸”åœ¨web.xmlä¸­å¢åŠ <distributable></distributable>æ ‡ç­¾å³å¯
 ![](https://zhangxiankui.github.io/imgs/session/tomcat-server-cluster.png)
 ![](https://zhangxiankui.github.io/imgs/session/tomcat-web-session-copy.png)
-- µ«ÊÇ»ùÓÚWeb·şÎñÆ÷µÄSession¸´ÖÆ´æÔÚÒÔÏÂ¼¸¸öÎÊÌâ£»1.ÓÉÓÚSession¸´ÖÆĞèÒª·şÎñÆ÷Ö®¼äÍ¨ĞÅ£¬ËùÒÔ´æÔÚÑÓÊ± 2.×îÖ÷ÒªµÄÒ»¸öÎÊÌâ£¬ÕâÖÖ·½°¸ĞÔÄÜ±È½Ï²î£¬Ò»µ©Õû¸ö·şÎñÆ÷¼¯Èº
-ÓĞ¼¸Ê®Ì¨»úÆ÷Ê±£¬´ËÊ±µÄSession´øÀ´µÄĞÔÄÜÏûºÄ½«ÊÇ¾Ş´óµÄ
+- ä½†æ˜¯åŸºäºWebæœåŠ¡å™¨çš„Sessionå¤åˆ¶å­˜åœ¨ä»¥ä¸‹å‡ ä¸ªé—®é¢˜ï¼›1.ç”±äºSessionå¤åˆ¶éœ€è¦æœåŠ¡å™¨ä¹‹é—´é€šä¿¡ï¼Œæ‰€ä»¥å­˜åœ¨å»¶æ—¶ 2.æœ€ä¸»è¦çš„ä¸€ä¸ªé—®é¢˜ï¼Œè¿™ç§æ–¹æ¡ˆæ€§èƒ½æ¯”è¾ƒå·®ï¼Œä¸€æ—¦æ•´ä¸ªæœåŠ¡å™¨é›†ç¾¤
+æœ‰å‡ åå°æœºå™¨æ—¶ï¼Œæ­¤æ—¶çš„Sessionå¸¦æ¥çš„æ€§èƒ½æ¶ˆè€—å°†æ˜¯å·¨å¤§çš„
 
-#### 3.ÒÀÀµÈı·½»º´æµÄSession¹²Ïí
-##### »ùÓÚWeb·şÎñÆ÷µÄÀ©Õ¹À´ÊµÏÖ
-- ±ÈÈçtomcatµÄ²å¼ş[memcached-session-manager](https://github.com/magro/memcached-session-manager)ºÍ[tomcat-redis-session-manager](https://github.com/jcoleman/tomcat-redis-session-manager)
-ÒÔ¼°Jetty²å¼ş[Jetty-nosql-mencache](https://github.com/yyuu/jetty-nosql-memcached)ºÍ[jetty-session-redis](https://github.com/Ovea/jetty-session-redis)£¬²å¼şÏêÇé¶¼¿ÉÒÔÔÚ
-ÉÏÃæµÄgithubÉÏÃæÈ¥²éÕÒ
-- ÕâÖÖ·½Ê½´æÔÚÒ»ÖÖÎÊÌâ£¬¾ÍÊÇµ±ÏîÄ¿ÖĞÊ¹ÓÃÃ»ÓĞ²å¼şµÄweb·şÎñÆ÷£¬ÖîÈçwebsphere£¬weblogic£¬resinµÈ£¬ÄÇÃ´¾ÍºÜŞÏŞÎÁË
-##### ×Ô¶¨ÒåÊµÏÖSession¹²Ïí
-×Ô¶¨ÒåÊµÏÖ²½ÖèÈçÏÂ£¬ÏÂÃæÒÔ´úÂë½âÎöµÄ·½Ê½À´Õ¹¿ª£º
-- 1.´´½¨Ò»¸öÀ¹½ØÆ÷filter£¬½«httpµÄrequest×ª»¯ÎªÎÒÃÇ×Ô¶¨ÒåµÄrequest,ÊìÏ¤web·şÎñ¼ÓÔØË³ĞòµÄÍ¬Ñ§Ó¦¸Ã¶¼ÖªµÀ£¬¸ÃfilterÒ»¶¨ÒªÅäÖÃÔÚweb.xmlÎÄ¼şµÄµÚÒ»¸ö
+#### 3.ä¾èµ–ä¸‰æ–¹ç¼“å­˜çš„Sessionå…±äº«
+##### åŸºäºWebæœåŠ¡å™¨çš„æ‰©å±•æ¥å®ç°
+- æ¯”å¦‚tomcatçš„æ’ä»¶[memcached-session-manager](https://github.com/magro/memcached-session-manager)å’Œ[tomcat-redis-session-manager](https://github.com/jcoleman/tomcat-redis-session-manager)
+ä»¥åŠJettyæ’ä»¶[Jetty-nosql-mencache](https://github.com/yyuu/jetty-nosql-memcached)å’Œ[jetty-session-redis](https://github.com/Ovea/jetty-session-redis)ï¼Œæ’ä»¶è¯¦æƒ…éƒ½å¯ä»¥åœ¨
+ä¸Šé¢çš„githubä¸Šé¢å»æŸ¥æ‰¾
+- è¿™ç§æ–¹å¼å­˜åœ¨ä¸€ç§é—®é¢˜ï¼Œå°±æ˜¯å½“é¡¹ç›®ä¸­ä½¿ç”¨æ²¡æœ‰æ’ä»¶çš„webæœåŠ¡å™¨ï¼Œè¯¸å¦‚websphereï¼Œweblogicï¼Œresinç­‰ï¼Œé‚£ä¹ˆå°±å¾ˆå°´å°¬äº†
+##### è‡ªå®šä¹‰å®ç°Sessionå…±äº«
+è‡ªå®šä¹‰å®ç°æ­¥éª¤å¦‚ä¸‹ï¼Œä¸‹é¢ä»¥ä»£ç è§£æçš„æ–¹å¼æ¥å±•å¼€ï¼š
+- 1.åˆ›å»ºä¸€ä¸ªæ‹¦æˆªå™¨filterï¼Œå°†httpçš„requestè½¬åŒ–ä¸ºæˆ‘ä»¬è‡ªå®šä¹‰çš„request,ç†Ÿæ‚‰webæœåŠ¡åŠ è½½é¡ºåºçš„åŒå­¦åº”è¯¥éƒ½çŸ¥é“ï¼Œè¯¥filterä¸€å®šè¦é…ç½®åœ¨web.xmlæ–‡ä»¶çš„ç¬¬ä¸€ä¸ª
+
 ```
 public class SessionFilter implements Filter {
 
@@ -98,7 +99,7 @@ public class SessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-        // »ñÈ¡¿Í»§¶ËµÄcookieĞ¯´øµÄsessionId
+        // è·å–å®¢æˆ·ç«¯çš„cookieæºå¸¦çš„sessionId
         String sid = null;
         Cookie[] cookies = request.getCookies();
         if (null != cookies) {
@@ -110,9 +111,9 @@ public class SessionFilter implements Filter {
         }
 
         if (null == sid) {
-            // ¿Í»§¶ËµÚÒ»´Î·ÃÎÊ£¬´´½¨sessionid£¬²¢½«sessionidÉèÖÃµ½·µ»ØµÄresponseÖĞ
+            // å®¢æˆ·ç«¯ç¬¬ä¸€æ¬¡è®¿é—®ï¼Œåˆ›å»ºsessionidï¼Œå¹¶å°†sessionidè®¾ç½®åˆ°è¿”å›çš„responseä¸­
 
-            // Éú³Ésessionid Ëæ»úÊı+µ±Ç°Ê±¼ä´Á+xkzhang
+            // ç”Ÿæˆsessionid éšæœºæ•°+å½“å‰æ—¶é—´æˆ³+xkzhang
             Random random = new Random();
             sid = random.nextInt(10000) + System.currentTimeMillis() + "-xkzhang";
 
@@ -122,7 +123,7 @@ public class SessionFilter implements Filter {
             response.addCookie(cookie);
         }
 
-        // Ê¹ÓÃ×Ô¶¨ÒåµÄrequestÀ´´¦ÀíÇëÇó
+        // ä½¿ç”¨è‡ªå®šä¹‰çš„requestæ¥å¤„ç†è¯·æ±‚
         chain.doFilter(new RedisHttpServletRequestWrapper(request, response, sid, meta), resp);
     }
 
@@ -134,7 +135,10 @@ public class SessionFilter implements Filter {
 
 }
 ```
-- 2.¼Ì³ĞHttpServletRequestWrapper£¬ÊµÏÖgetSession·½·¨£¬»ñÈ¡ÎÒÃÇ×Ô¶¨ÒåµÄsession¶ÔÏó£¬ÕâÀï¾Í³é¼¸¸öÖØÒªµÄ·½·¨
+
+
+- 2.ç»§æ‰¿HttpServletRequestWrapperï¼Œå®ç°getSessionæ–¹æ³•ï¼Œè·å–æˆ‘ä»¬è‡ªå®šä¹‰çš„sessionå¯¹è±¡ï¼Œè¿™é‡Œå°±æŠ½å‡ ä¸ªé‡è¦çš„æ–¹æ³•
+
 ```
 /**
  * Created By IntelliJ IDEA
@@ -173,7 +177,7 @@ public class RedisHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public HttpSession getSession(boolean create) {
         /**
-         * ÖØĞ´getSession·½·¨£¬¸Ä³É»ñÈ¡×Ô¶¨ÒåµÄRedisHttpSession
+         * é‡å†™getSessionæ–¹æ³•ï¼Œæ”¹æˆè·å–è‡ªå®šä¹‰çš„RedisHttpSession
          */
         if (null != currentSession) {
             return currentSession;
@@ -193,7 +197,9 @@ public class RedisHttpServletRequestWrapper extends HttpServletRequestWrapper {
 }
 
 ```
-- 3.ÊµÏÖhttpsession½Ó¿Ú£¬ÖØĞ´ÎÒÃÇĞèÒªÓÃµ½µÄ·½·¨£¬±ÈÈçset getÕâĞ©£¬¸Ä³É´Óredis»ñÈ¡
+
+- 3.å®ç°httpsessionæ¥å£ï¼Œé‡å†™æˆ‘ä»¬éœ€è¦ç”¨åˆ°çš„æ–¹æ³•ï¼Œæ¯”å¦‚set getè¿™äº›ï¼Œæ”¹æˆä»redisè·å–
+
 ```
 /**
  * Created By IntelliJ IDEA
@@ -205,7 +211,7 @@ public class RedisHttpSession implements HttpSession {
 
     private Logger logger = LoggerFactory.getLogger(RedisHttpSession.class);
 
-    private final long creationTime = System.currentTimeMillis(); // sessionµÄ´´½¨Ê±¼ä
+    private final long creationTime = System.currentTimeMillis(); // sessionçš„åˆ›å»ºæ—¶é—´
 
     private String sid = "";
 
@@ -244,40 +250,41 @@ public class RedisHttpSession implements HttpSession {
         return sid;
     }
     /**
-     * »ñÈ¡sessionÊôĞÔ ÔİÇÒÖ»Ö§³ÖstringÀàĞÍµÄvalue
-     *   1.´´½¨Jedis¿Í»§¶Ë
-     *   2.¸ù¾İsessionId»ñÈ¡µ±Ç°µÄsessionĞÅÏ¢µÄÊôĞÔĞÅÏ¢£¬²ÉÓÃhashµÄÊı¾İ½á¹¹
+     * è·å–sessionå±æ€§ æš‚ä¸”åªæ”¯æŒstringç±»å‹çš„value
+     *   1.åˆ›å»ºJediså®¢æˆ·ç«¯
+     *   2.æ ¹æ®sessionIdè·å–å½“å‰çš„sessionä¿¡æ¯çš„å±æ€§ä¿¡æ¯ï¼Œé‡‡ç”¨hashçš„æ•°æ®ç»“æ„
      * @param s
      * @return
      */
     public Object getAttribute(String s) {
-        logger.info("»ñÈ¡session£º{} µÄÊôĞÔ£º{}", sid, s);
+        logger.info("è·å–sessionï¼š{} çš„å±æ€§ï¼š{}", sid, s);
 
         String value = JedisPoolUtil.hget("JSESSIONID:" + sid, s);
 
-        logger.info("»ñÈ¡µ½ÊôĞÔÖµÎª£º{}", value);
+        logger.info("è·å–åˆ°å±æ€§å€¼ä¸ºï¼š{}", value);
 
         return value;
     }
 
     public void setAttribute(String s, Object o) {
-        logger.info("ÉèÖÃsession£º{} µÄÊôĞÔ£º{}Îª£º{}", sid, s, o);
+        logger.info("è®¾ç½®sessionï¼š{} çš„å±æ€§ï¼š{}ä¸ºï¼š{}", sid, s, o);
 
         if (o instanceof String) {
             JedisPoolUtil.hset("JSESSIONID:" + sid, s, (String) o);
         }
 
-        logger.info("ÉèÖÃÊôĞÔÖµ³É¹¦!");
+        logger.info("è®¾ç½®å±æ€§å€¼æˆåŠŸ!");
     }
 }
 ```
 
-##### Ê¹ÓÃspringµÄ[spring-session](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession-redis)
-- 1.springÅäÖÃÎÄ¼ş
+##### ä½¿ç”¨springçš„[spring-session](https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession-redis)
+- 1.springé…ç½®æ–‡ä»¶
+
 ```
 <context:annotation-config />
 
-<!-- ¼ÓÔØpropertiesÎÄ¼ş -->
+<!-- åŠ è½½propertiesæ–‡ä»¶ -->
 <bean id="configProperties"
       class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
@@ -290,22 +297,25 @@ public class RedisHttpSession implements HttpSession {
 <!-- RedisHttpSessionConfiguration -->
 <bean
         class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-    <property name="maxInactiveIntervalInSeconds" value="${redis.session.timeout}" />    <!-- session¹ıÆÚÊ±¼ä,µ¥Î»ÊÇÃë -->
+    <property name="maxInactiveIntervalInSeconds" value="${redis.session.timeout}" />    <!-- sessionè¿‡æœŸæ—¶é—´,å•ä½æ˜¯ç§’ -->
 </bean>
 
-<!--LettuceConnectionFactory ÓÃÓÚÁ¬½Óredis-->
+<!--LettuceConnectionFactory ç”¨äºè¿æ¥redis-->
 <bean
         class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
         p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" />
 ```
+
+
 - 2.web.xml
+
 ```
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:spring-session.xml</param-value>
   </context-param>
 
-  <!-- Õâ¸öfilter Òª·ÅÔÚµÚÒ»¸ö ×¢ÒâÕâÀïµÄfilter-name²»ÄÜ¸Ä£¬·ñÔò»áÓĞÎÊÌâ-->
+  <!-- è¿™ä¸ªfilter è¦æ”¾åœ¨ç¬¬ä¸€ä¸ª æ³¨æ„è¿™é‡Œçš„filter-nameä¸èƒ½æ”¹ï¼Œå¦åˆ™ä¼šæœ‰é—®é¢˜-->
   <filter>
     <filter-name>springSessionRepositoryFilter</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -320,13 +330,13 @@ public class RedisHttpSession implements HttpSession {
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 ```
-- 3.spring-sessionµÄ·ÖÎö
-¿´ÁËÒ»ÏÂÕâÀïµÄspringÊµÏÖÊÇ²»ÊÇºÜ¼ò½à£¬ÊÇµÄ£¬springÆäÊµÊÇ¶ÔÎÒÉÏÃæ×Ô¶¨ÊµÏÖµÄÒ»ÖÖ·â×°£¬²¢ÇÒ½èÖúspringÈİÆ÷À´Íê³ÉÊµÀıµÄ×°ÔØ£¬ÏÔµÃÅäÖÃºÜ¼òµ¥£¬Ã»´í£¬ÕâÒ²ÊÇspring
-Ëù¸³ÓèÎÒÃÇµÄ£¬¾ßÌåµÄ´úÂëÕâÀï¾Í²»Õ¹¿ªËµ£¬¸ĞĞËÈ¤Í¬Ñ§¿ÉÒÔ½øµ½ÀïÃæÈ¥×ĞÏ¸¿´£¬ÆäÊµ¾ÍÊÇºÍÎÒÉÏÃæµÄ²½ÖèÏàÍ¬£¬µ«ÊÇÀïÃæ´úÂëºÜ¾«²Ê
-- 4.¾ßÌåÔËĞĞ½á¹ûÈçÏÂÍ¼ËùÊ¾£¬·şÎñÆ÷¼¯Èº²»¹ÜÔõÃ´·ÃÎÊ£¬Sessionid¶¼ÊÇ²»±äµÄ
+- 3.spring-sessionçš„åˆ†æ<br>
+çœ‹äº†ä¸€ä¸‹è¿™é‡Œçš„springå®ç°æ˜¯ä¸æ˜¯å¾ˆç®€æ´ï¼Œæ˜¯çš„ï¼Œspringå…¶å®æ˜¯å¯¹æˆ‘ä¸Šé¢è‡ªå®šå®ç°çš„ä¸€ç§å°è£…ï¼Œå¹¶ä¸”å€ŸåŠ©springå®¹å™¨æ¥å®Œæˆå®ä¾‹çš„è£…è½½ï¼Œæ˜¾å¾—é…ç½®å¾ˆç®€å•ï¼Œæ²¡é”™ï¼Œè¿™ä¹Ÿæ˜¯spring
+æ‰€èµ‹äºˆæˆ‘ä»¬çš„ï¼Œå…·ä½“çš„ä»£ç è¿™é‡Œå°±ä¸å±•å¼€è¯´ï¼Œæ„Ÿå…´è¶£åŒå­¦å¯ä»¥è¿›åˆ°é‡Œé¢å»ä»”ç»†çœ‹ï¼Œå…¶å®å°±æ˜¯å’Œæˆ‘ä¸Šé¢çš„æ­¥éª¤ç›¸åŒï¼Œä½†æ˜¯é‡Œé¢ä»£ç å¾ˆç²¾å½©
+- 4.å…·ä½“è¿è¡Œç»“æœå¦‚ä¸‹å›¾æ‰€ç¤ºï¼ŒæœåŠ¡å™¨é›†ç¾¤ä¸ç®¡æ€ä¹ˆè®¿é—®ï¼ŒSessionidéƒ½æ˜¯ä¸å˜çš„
 ![](https://zhangxiankui.github.io/imgs/session/result.jpg)
 
-## ËÄ.×Ü½á
-- 1.±¾Æª²©¿Í¾ÍSessionÏà¹ØÎÊÌâ×öÁË×Ü½á£¬ÁË½âÁËSessionºÍCookie³öÏÖµÄÔ­ÒòÒÔ¼°SessionÎÊÌâ½â¾ö·½°¸ÒÔ¼°ÓÅÈ±µã
-- 2.ÔÚSession¹²ÏíÎÊÌâ½â¾ö·½°¸ÖĞ£¬»áÉæ¼°µ½redisºÍnginxµÄ·şÎñÆ÷ÒÔ¼°web·şÎñÆ÷¼¯Èº´î½¨£¬ÕâÀïÊ¡ÂÔ
-- 3.ÕâÀïÁĞµÄ½â¾ö·½°¸¶¼ÊÇÓĞÓÅÈ±µãµÄ£¬Ã»ÓĞÒ»¸öÍêÃÀµÄ·½°¸£¬Ö»ÓĞ×îÊÊºÏÒµÎñµÄ·½°¸
+## å››.æ€»ç»“
+- 1.æœ¬ç¯‡åšå®¢å°±Sessionç›¸å…³é—®é¢˜åšäº†æ€»ç»“ï¼Œäº†è§£äº†Sessionå’ŒCookieå‡ºç°çš„åŸå› ä»¥åŠSessioné—®é¢˜è§£å†³æ–¹æ¡ˆä»¥åŠä¼˜ç¼ºç‚¹
+- 2.åœ¨Sessionå…±äº«é—®é¢˜è§£å†³æ–¹æ¡ˆä¸­ï¼Œä¼šæ¶‰åŠåˆ°rediså’Œnginxçš„æœåŠ¡å™¨ä»¥åŠwebæœåŠ¡å™¨é›†ç¾¤æ­å»ºï¼Œè¿™é‡Œçœç•¥
+- 3.è¿™é‡Œåˆ—çš„è§£å†³æ–¹æ¡ˆéƒ½æ˜¯æœ‰ä¼˜ç¼ºç‚¹çš„ï¼Œæ²¡æœ‰ä¸€ä¸ªå®Œç¾çš„æ–¹æ¡ˆï¼Œåªæœ‰æœ€é€‚åˆä¸šåŠ¡çš„æ–¹æ¡ˆ
