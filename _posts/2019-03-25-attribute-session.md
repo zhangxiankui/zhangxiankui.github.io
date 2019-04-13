@@ -63,9 +63,10 @@ Cookie是服务端产生并通过response的header返回给客户端并保存在
 #### 2.依赖Servlet容器的Session复制
 ##### 部分Web服务器诸如Tomcat已经支持Session复制
 - 使用起来非常简单，只需要在tomcat中放开集群配置<cluster>，并且在web.xml中增加<distributable></distributable>标签即可
- ![](https://zhangxiankui.github.io/imgs/session/tomcat-server-cluster.png)
+
+  ![](https://zhangxiankui.github.io/imgs/session/tomcat-server-cluster.png)
  
- ![](https://zhangxiankui.github.io/imgs/session/tomcat-web-session-copy.png)
+  ![](https://zhangxiankui.github.io/imgs/session/tomcat-web-session-copy.png)
 - 但是基于Web服务器的Session复制存在以下几个问题；1.由于Session复制需要服务器之间通信，所以存在延时 2.最主要的一个问题，这种方案性能比较差，一旦整个服务器集群
 有几十台机器时，此时的Session带来的性能消耗将是巨大的
 
